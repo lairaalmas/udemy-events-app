@@ -4,16 +4,16 @@ import classes from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
   const navItems = [
-    { title: "Home", path: "", id: "i1", isEnd: false },
-    { title: "Events", path: "events", id: "i2", isEnd: true },
-    { title: "Event Detail", path: "events/:eventId", id: "i3", isEnd: true },
-    { title: "New Event", path: "events/new", id: "i4", isEnd: false },
-    {
-      title: "Edit Event",
-      path: "events/:eventId/edit",
-      id: "i5",
-      isEnd: false,
-    },
+    { title: "Home", path: "/", id: "i1", isEnd: true },
+    { title: "Events", path: "/events", id: "i2", isEnd: true },
+    // { title: "Event Detail", path: "events/:eventId", id: "i3", isEnd: true },
+    // { title: "New Event", path: "events/new", id: "i4", isEnd: false },
+    // {
+    //   title: "Edit Event",
+    //   path: "events/:eventId/edit",
+    //   id: "i5",
+    //   isEnd: false,
+    // },
   ];
 
   return (
@@ -21,7 +21,7 @@ const MainNavigation = () => {
       <nav>
         <ul className={classes.list}>
           {navItems.map((item) => (
-            <li>
+            <li key={item.id}>
               <NavLink
                 to={item.path}
                 className={({ isActive }) => {
