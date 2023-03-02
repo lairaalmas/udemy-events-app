@@ -15,4 +15,4 @@ Guided project developed during the course [React - The Complete Guide (incl Hoo
     - `Outlet`
     - `Link`, `NavLink`
     - `useParams`, `useNavigate`,
-    - `useLoaderData`
+    - `useLoaderData`, `useNavigation`
