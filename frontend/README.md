@@ -20,3 +20,5 @@ Guided project developed during the course [React - The Complete Guide (incl Hoo
     - `json`, `redirect`
     - `Form`, `useFetcher`
     - `useSubmit`
+    - `defer`, `Await`
+- the last 2 are used with `Suspense` that is from `react`, not `react-router-dom`

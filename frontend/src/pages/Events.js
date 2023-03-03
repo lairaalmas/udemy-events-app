@@ -1,4 +1,5 @@
-import { useLoaderData, json } from "react-router-dom";
+import { Suspense } from "react";
+import { useLoaderData, json, defer, Await } from "react-router-dom";
 
 import EventsList from "../components/EventsList";
 
@@ -7,17 +8,22 @@ const EventsPage = () => {
 
   // if (data.isError) return <p>{data.message}</p>;
 
-  const events = data.events;
-
-  return <EventsList events={events} />;
+  // const events = data.events;
+  // return <EventsList events={events} />;
+  return (
+    // will show this fallback until data is loaded
+    <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+      <Await resolve={data.events}>
+        {/* This will appear when data fetching is complete */}
+        {(loadedEvents) => <EventsList events={loadedEvents} />}
+      </Await>
+    </Suspense>
+  );
 };
 
 export default EventsPage;
 
-// this is client side code
-// can use fetch, local storage, etc
-// cannot use react hooks
-export const loader = async () => {
+const loadEvents = async () => {
   const response = await fetch("http://localhost:8080/events");
 
   if (!response.ok) {
@@ -27,6 +33,17 @@ export const loader = async () => {
     // });
     throw json({ message: "Could not fetch events" }, { status: 500 });
   } else {
-    return response;
+    // this doesnt work with defer
+    // return response;
+    const resData = await response.json();
+    return resData.events;
   }
+};
+
+// this is client side code
+// can use fetch, local storage, etc
+// cannot use react hooks
+export const loader = () => {
+  // can have multiple requests. here it just needs one.
+  return defer({ events: loadEvents() });
 };
