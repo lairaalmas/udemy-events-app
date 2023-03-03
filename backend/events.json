@@ -1,1 +1,11 @@
-{"events":[{"title":"Pied Piper Lauch Party","image":"https://d2ymzkn1ailq93.cloudfront.net/wp-content/uploads/2016/06/pied-piper-helper-flute-snapmunk.jpg","date":"2013-09-01","description":"Ask for directions!","id":"c3000420-53d5-47d8-aa4b-b8132e00f114"},{"title":"Company Hangout!!","image":"https://images.hindustantimes.com/img/2022/10/06/550x309/archana_gulati_google_resign_latest_news_1664212153997_1665020386189_1665020386189.JPG","date":"2023-03-05","description":"Mandatory Fun!","id":"0e72976a-5921-49f9-9ba3-a7171bed19fd"},{"id":"e1","title":"A dummy event","date":"2023-02-22","image":"https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg","description":"Join this amazing event and connect with fellow developers."}]}
+{
+  "events": [
+    {
+      "id": "e1",
+      "title": "A dummy event",
+      "date": "2023-02-22",
+      "image": "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
+      "description": "Join this amazing event and connect with fellow developers."
+    }
+  ]
+}
