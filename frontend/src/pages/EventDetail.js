@@ -1,19 +1,37 @@
-import { useRouteLoaderData, json, redirect } from "react-router-dom";
+import { Suspense } from "react";
+import {
+  useRouteLoaderData,
+  json,
+  redirect,
+  defer,
+  Await,
+} from "react-router-dom";
 
 import EventItem from "../components/EventItem";
+import EventsList from "../components/EventsList";
 
 const EventDetailPage = () => {
-  const data = useRouteLoaderData("event-detail");
+  const { event, events } = useRouteLoaderData("event-detail");
 
-  return <EventItem event={data.event} />;
+  return (
+    <>
+      <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+        <Await resolve={event}>
+          {(loadedEvent) => <EventItem event={loadedEvent} />}
+        </Await>
+      </Suspense>
+      <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+        <Await resolve={events}>
+          {(loadedEvents) => <EventsList events={loadedEvents} />}
+        </Await>
+      </Suspense>
+    </>
+  );
 };
 
 export default EventDetailPage;
 
-// cannot use useParams hook, but receives from loader as props
-export const loader = async ({ request, params }) => {
-  const id = params.eventId;
-
+const loadEvent = async (id) => {
   const response = await fetch(`http://localhost:8080/events/${id}`);
 
   if (!response.ok) {
@@ -22,8 +40,28 @@ export const loader = async ({ request, params }) => {
       { status: 500 }
     );
   } else {
-    return response;
+    const resData = await response.json();
+    return resData.event;
   }
+};
+
+// COPY OF THE FUNCTION ON EVENTS.JS TO SHOW DEFER FOR MULTIPLE FETCHING
+const loadEvents = async () => {
+  const response = await fetch("http://localhost:8080/events");
+
+  if (!response.ok) {
+    throw json({ message: "Could not fetch events" }, { status: 500 });
+  } else {
+    const resData = await response.json();
+    return resData.events;
+  }
+};
+
+// cannot use useParams hook, but receives from loader as props
+export const loader = ({ request, params }) => {
+  const id = params.eventId;
+
+  return defer({ event: loadEvent(id), events: loadEvents() });
 };
 
 export const action = async ({ params, request }) => {
