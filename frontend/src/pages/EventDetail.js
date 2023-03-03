@@ -57,11 +57,25 @@ const loadEvents = async () => {
   }
 };
 
-// cannot use useParams hook, but receives from loader as props
-export const loader = ({ request, params }) => {
+/** this code will show the page,
+ * then show loading feedback for both components */
+
+// export const loader = ({ request, params }) => {
+//   const id = params.eventId;
+//   return defer({ event: loadEvent(id), events: loadEvents() });
+// };
+
+/** this code will wait for first component to be loaded,
+ * show the page,
+ * then show loading feedback for second component */
+
+export const loader = async ({ request, params }) => {
   const id = params.eventId;
 
-  return defer({ event: loadEvent(id), events: loadEvents() });
+  return defer({
+    event: await loadEvent(id),
+    events: loadEvents(),
+  });
 };
 
 export const action = async ({ params, request }) => {
