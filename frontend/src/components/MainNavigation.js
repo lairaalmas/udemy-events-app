@@ -1,19 +1,13 @@
 import { NavLink } from "react-router-dom";
 
 import classes from "./MainNavigation.module.css";
+import NewsletterSignup from "./NewsletterSignup";
 
 const MainNavigation = () => {
   const navItems = [
     { title: "Home", path: "/", id: "i1", isEnd: true },
     { title: "Events", path: "/events", id: "i2", isEnd: true },
-    // { title: "Event Detail", path: "events/:eventId", id: "i3", isEnd: true },
-    // { title: "New Event", path: "events/new", id: "i4", isEnd: false },
-    // {
-    //   title: "Edit Event",
-    //   path: "events/:eventId/edit",
-    //   id: "i5",
-    //   isEnd: false,
-    // },
+    { title: "Newsletter", path: "/newsletter", id: "i3", isEnd: true },
   ];
 
   return (
@@ -35,6 +29,7 @@ const MainNavigation = () => {
           ))}
         </ul>
       </nav>
+      <NewsletterSignup />
     </header>
   );
 };
