@@ -17,4 +17,4 @@ Guided project developed during the course [React - The Complete Guide (incl Hoo
     - `useParams`, `useNavigate`,
     - `useNavigation`
     - `useLoaderData`, `useRouteLoaderData`
-    - `json`, `redirect`, `Form`
+    - `json`, `redirect`, `Form`, `useSubmit`
