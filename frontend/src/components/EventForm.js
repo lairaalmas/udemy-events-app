@@ -1,8 +1,16 @@
-import { useNavigate, useNavigation, Form } from "react-router-dom";
+import {
+  useNavigate,
+  useNavigation,
+  Form,
+  useActionData,
+} from "react-router-dom";
 
 import classes from "./EventForm.module.css";
 
 function EventForm({ method, event }) {
+  // this data is the data return on the back end for error 422
+  // will only have data if failed submitting
+  const data = useActionData();
   const navigate = useNavigate();
   const navigation = useNavigation();
 
@@ -14,6 +22,13 @@ function EventForm({ method, event }) {
 
   return (
     <Form method="post" className={classes.form}>
+      {data && data.errors && (
+        <ul>
+          {Object.values(data.errors).map((err) => (
+            <li key={err}>{err}</li>
+          ))}
+        </ul>
+      )}
       <p>
         <label htmlFor="title">Title</label>
         <input
